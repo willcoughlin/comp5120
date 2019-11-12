@@ -11,6 +11,11 @@
 
 3. Show the unique names of all books ordered by *lastname1
      firstname1*.
+    SELECT DISTINCT Title FROM Book
+        INNER JOIN OrderDetail ON OrderDetail.BookID = Book.BookID
+        INNER JOIN `Order` ON `Order`.OrderID = OrderDetail.OrderID
+        INNER JOIN Customer ON Customer.CustomerID = `Order`.CustomerID
+    WHERE Customer.CustomerID = 1
     
 4. Show the title of books which have more than 10 units in stock.
     SELECT Title FROM Book WHERE Quantity > 10
