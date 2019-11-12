@@ -1,26 +1,41 @@
 1. Show the subject names of books supplied by *supplier2*.
-    SELECT CategoryName FROM Subject INNER JOIN Book ON Book.SubjectID = Subject.SubjectID WHERE Book.SupplierID = 2
+    SELECT CategoryName FROM Subject 
+        INNER JOIN Book ON Book.SubjectID = Subject.SubjectID 
+    WHERE Book.SupplierID = 2
+
 2. Show the name and price of the most expensive book supplied by
      *supplier3*.
-    SELECT Title, UnitPrice FROM Book INNER JOIN Supplier on Book.SupplierID = Supplier.SupplierID WHERE Supplier.SupplierID = 3 ORDER BY UnitPrice DESC LIMIT 1
+    SELECT Title, UnitPrice FROM Book 
+        INNER JOIN Supplier on Book.SupplierID = Supplier.SupplierID 
+    WHERE Supplier.SupplierID = 3 ORDER BY UnitPrice DESC LIMIT 1
+
 3. Show the unique names of all books ordered by *lastname1
      firstname1*.
     
 4. Show the title of books which have more than 10 units in stock.
     SELECT Title FROM Book WHERE Quantity > 10
+
 5. Show the total price *lastname1 firstname1* has paid for the books.
 
 6. Show the names of the customers who have paid less than $80 in
      totals.
 
 7. Show the name of books supplied by *supplier2*.
-    SELECT Title FROM Book INNER JOIN Supplier ON Book.SupplierID = Supplier.SupplierID WHERE Supplier.SupplierID = 2
+    SELECT Title FROM Book 
+        INNER JOIN Supplier ON Book.SupplierID = Supplier.SupplierID 
+    WHERE Supplier.SupplierID = 2
+
 8. Show the total price each customer paid and their names.  List the
      result in descending price.
 
 9. Show the names of all the books shipped on 08/04/2016 and their
      shippers' names.
-    SELECT Book.BookID, Shipper.ShpperName FROM Book INNER JOIN OrderDetail ON OrderDetail.BookID = Book.BookID INNER JOIN `Order` ON `Order`.OrderID = OrderDetail.OrderID INNER JOIN Shipper ON Shipper.ShipperID = `Order`.ShipperID WHERE `Order`.OrderDate = '2016-08-04'
+    SELECT Book.BookID, Shipper.ShpperName FROM Book 
+        INNER JOIN OrderDetail ON OrderDetail.BookID = Book.BookID 
+        INNER JOIN `Order` ON `Order`.OrderID = OrderDetail.OrderID 
+        INNER JOIN Shipper ON Shipper.ShipperID = `Order`.ShipperID 
+    WHERE `Order`.OrderDate = '2016-08-04'
+
 10. Show the unique names of all the books *lastname1 firstname1* and
      *lastname4 firstname4* *both* ordered.
 
