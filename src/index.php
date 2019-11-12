@@ -231,7 +231,7 @@ $suppliers = $conn->query("SELECT * FROM `Supplier`");
                                             while ($row = $shippers->fetch_assoc()) {
                                                 echo "<tr>";
                                                 echo "<td>" . $row["ShipperID"] . "</td>";
-                                                echo "<td>" . $row["ShpperName"] . "</td>";
+                                                echo "<td>" . $row["ShipperName"] . "</td>";
                                                 echo "</tr>";
                                             }
                                         }
