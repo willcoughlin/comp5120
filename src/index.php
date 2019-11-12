@@ -331,7 +331,35 @@ $suppliers = $conn->query("SELECT * FROM `Supplier`");
                         echo $conn->error;
                     } elseif (isset($result->num_rows)) {
                         // we have a result set
-                        echo $result->num_rows;
+                        echo $result->num_rows . " rows returned <br /><br />";
+
+                        // print out the column names
+                        $columns = $result->fetch_fields();
+                        $index = 0;
+                        foreach ($columns as $val) {
+                            $index++;
+                            if ($index < $result->field_count){
+                                printf("%s, ",$val->name);
+                            }
+                            // last field in table doesn't need a comma
+                            else {
+                                printf("%s <br />",$val->name);
+                            }
+                        }
+                        
+                        // print out the result set
+                        while($row = $result->fetch_row()){ 
+                            for ($i = 0; $i < $result->field_count; $i++){
+                                if ($i < $result->field_count - 1){
+                                    printf("%s, ", $row[$i]);
+                                }
+                                // last element in the set doesn't need a comma
+                                else {
+                                    printf("%s", $row[$i]);
+                                }
+                            }
+                            echo "<br />";
+                        } 
                     } else {
                         // no result set
                         echo "success";
