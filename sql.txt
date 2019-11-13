@@ -58,6 +58,11 @@
 
 11. Show the names of all the books *lastname6 firstname6* was
      responsible for.
+    SELECT Title FROM Book
+        INNER JOIN OrderDetail ON OrderDetail.BookID = Book.BookID
+        INNER JOIN `Order` ON `Order`.OrderID = OrderDetail.OrderID
+        INNER JOIN Customer ON Customer.CustomerID = `Order`.CustomerID
+    WHERE Customer.CustomerID = 6
 
 12. Show the names of all the ordered books and their total
      quantities.  List the result in ascending quantity.
