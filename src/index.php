@@ -33,10 +33,29 @@ $suppliers = $conn->query("SELECT * FROM `Supplier`");
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Font Awesome Pro -->
+    <link href="https://cdn.auburn.edu/assets/fonts/fontawesome-pro-5.10.2-web/css/all.min.css" rel="stylesheet">
 
-    <title>Hello, world!</title>
+    <title>B-SQL Bookstore</title>
+
+    <style>
+        #book2 {
+            transform: scaleX(-1);
+        }
+        /* override the massive padding Bootstrap gives to jumbotrons */
+        .jumbotron {
+            padding: 2rem 1rem !important;
+        }
+    </style>
   </head>
   <body>
+    <div class="jumbotron jumbotron-fluid alert-primary text-center">
+        <div class="container">
+            <span class="fad fa-books display-4"></span>
+            <span class="display-4">B-SQL Bookstore</span>
+            <span class="fad fa-books display-4" id="book2"></span>
+        </div>
+    </div>
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6">
