@@ -1,10 +1,6 @@
 <?php
-$db_host = "mysql.auburn.edu";
-$db_name = "wfc0003db";
-$db_user = "wfc0003";
-$db_pass = "PoNERpA";
-
-$conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
+$dbcredentials = json_decode(file_get_contents("dbcredentials.json"), TRUE);
+$conn = new mysqli($dbcredentials["host"], $dbcredentials["user"], $dbcredentials["pass"], $dbcredentials["name"]);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
