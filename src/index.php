@@ -32,7 +32,7 @@ $suppliers = $conn->query("SELECT * FROM `Supplier`");
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
 
     <title>Hello, world!</title>
   </head>
@@ -305,7 +305,7 @@ $suppliers = $conn->query("SELECT * FROM `Supplier`");
                     <form method="post" action="">
                         <div class="form-group">
                             <textarea name="sqlInjector" id="sqlInjector" class="form-control"
-                                      placeholder="SELECT * FROM `Book`;"><?php echo isset($_POST["sqlInjector"]) && !empty($_POST["sqlInjector"]) ? stripslashes($_POST["sqlInjector"]) : ""; ?></textarea>
+                                      placeholder="SELECT * FROM `Book`;" rows="6"><?php echo isset($_POST["sqlInjector"]) && !empty($_POST["sqlInjector"]) ? stripslashes($_POST["sqlInjector"]) : ""; ?></textarea>
                         </div>
                         <button type="submit" class="btn btn-success">Submit</button>
                     </form>
@@ -328,8 +328,10 @@ $suppliers = $conn->query("SELECT * FROM `Supplier`");
                     echo "Query: " . htmlentities($sql_to_inject) . "<br />";
                     if (!empty($conn->error)) {
                         // we have an error ahh
-                        echo $conn->error;
+                        echo "<div class=\"alert alert-danger\">" . $conn->error . "</div>";
                     } elseif (isset($result->num_rows)) {
+                        echo "<div class=\"alert alert-success\">";
+
                         // we have a result set
                         echo $result->num_rows . " rows returned <br /><br />";
 
@@ -360,9 +362,11 @@ $suppliers = $conn->query("SELECT * FROM `Supplier`");
                             }
                             echo "<br />";
                         } 
+                        echo "</div>";
+
                     } else {
                         // no result set
-                        echo "success";
+                        echo "<div class=\"alert alert-success\">Command executed successfully.</div>";
                     }
                     ?>
                 </div>
@@ -381,8 +385,8 @@ $suppliers = $conn->query("SELECT * FROM `Supplier`");
     
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
   </body>
 </html>
