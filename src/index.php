@@ -88,7 +88,7 @@ if ($conn->connect_error) {
                         echo "<div class=\"alert alert-danger\">You cannot run DROP TABLE.</div>";
                     } elseif (!empty($conn->error)) {
                         // we have an error ahh
-                        echo "<div class=\"alert alert-danger\">" . $conn->error . "</div>";
+                        echo "<div class=\"alert alert-danger\">MySQL Error: " . $conn->error . "</div>";
                     } elseif (isset($result->num_rows)) {
                         echo "<div class=\"alert alert-success\">";
 
