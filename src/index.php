@@ -66,8 +66,14 @@ if ($conn->connect_error) {
             // Run query if one is submitted
             if (isset($_POST["sqlInjector"]) && !empty($_POST["sqlInjector"])) 
             {
+                $tried_to_drop = FALSE;
                 $sql_to_inject = stripslashes($_POST["sqlInjector"]);
-                $result = $conn->query($sql_to_inject);
+                if (preg_match("/DROP TABLE `?.*`?/mi", $sql_to_inject) == 1) {
+                    $tried_to_drop = TRUE;
+                } else {
+                    $result = $conn->query($sql_to_inject);
+                }
+
             ?>
 
             <div class="card my-1">
@@ -76,7 +82,10 @@ if ($conn->connect_error) {
 
                     <?php
                     echo "Query: " . htmlentities($sql_to_inject) . "<br />";
-                    if (!empty($conn->error)) {
+
+                    if ($tried_to_drop) {
+                        echo "<div class=\"alert alert-danger\">You cannot run DROP TABLE.</div>";
+                    } elseif (!empty($conn->error)) {
                         // we have an error ahh
                         echo "<div class=\"alert alert-danger\">" . $conn->error . "</div>";
                     } elseif (isset($result->num_rows)) {
