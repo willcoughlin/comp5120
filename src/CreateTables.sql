@@ -60,15 +60,15 @@ create table `Order` (
     
     constraint FK_Order_Customer foreign key (CustomerID)
 		references `Customer`(CustomerID)
-        on delete restrict
+        on delete set null
         on update cascade,
 	constraint FK_Order_Employee foreign key (EmployeeID)
 		references `Employee`(EmployeeID)
-        on delete restrict
+        on delete set null
         on update cascade,
 	constraint FK_Order_Shipper foreign key (ShipperID)
 		references `Shipper`(ShipperID)
-        on delete restrict
+        on delete set null
         on update cascade
 ) 
 ENGINE=InnoDB;
@@ -83,11 +83,11 @@ create table `OrderDetail` (
     
     constraint FK_OrderDetail_Book foreign key (BookID)
 		references `Book`(BookID)
-        on delete restrict
+        on delete set null
         on update cascade,
 	constraint FK_OrderDetail_Order foreign key (OrderID)
 		references `Order`(OrderID)
-        on delete restrict
+        on delete set null
         on update cascade
 ) 
 ENGINE=InnoDB;
@@ -108,11 +108,11 @@ create table `Book` (
     
     constraint FK_Book_Supplier foreign key (SupplierID)
 		references `Supplier`(SupplierID)
-        on delete restrict
+        on delete set null
         on update cascade,
 	constraint FK_Book_Subject foreign key (SubjectID)
 		references `Subject`(SubjectID)
-        on delete restrict
+        on delete set null
         on update cascade
 ) 
 ENGINE=InnoDB;
