@@ -40,6 +40,7 @@ if ($conn->connect_error) {
             <span class="fad fa-books display-4"></span>
             <span class="display-4">B-SQL Bookstore</span>
             <span class="fad fa-books display-4" id="book2"></span>
+            <p class="lead">Proprietors: Peyton Gasink & Will Coughlin</p>
         </div>
     </div>
     <div class="container-fluid">
