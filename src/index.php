@@ -82,7 +82,6 @@ if ($conn->connect_error) {
                 <div class="card-body">
 
                     <?php
-                    echo "Query: " . htmlentities($sql_to_inject) . "<br />";
 
                     if ($tried_to_drop) {
                         echo "<div class=\"alert alert-danger\">You cannot run DROP TABLE.</div>";
