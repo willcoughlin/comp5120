@@ -40,6 +40,7 @@ if ($conn->connect_error) {
             <span class="fad fa-books display-4"></span>
             <span class="display-4">B-SQL Bookstore</span>
             <span class="fad fa-books display-4" id="book2"></span>
+            <p class="lead">Proprietors: Peyton Gasink & Will Coughlin</p>
         </div>
     </div>
     <div class="container-fluid">
@@ -81,48 +82,41 @@ if ($conn->connect_error) {
                 <div class="card-body">
 
                     <?php
-                    echo "Query: " . htmlentities($sql_to_inject) . "<br />";
 
                     if ($tried_to_drop) {
                         echo "<div class=\"alert alert-danger\">You cannot run DROP TABLE.</div>";
                     } elseif (!empty($conn->error)) {
                         // we have an error ahh
-                        echo "<div class=\"alert alert-danger\">" . $conn->error . "</div>";
+                        echo "<div class=\"alert alert-danger\">MySQL Error: " . $conn->error . "</div>";
                     } elseif (isset($result->num_rows)) {
                         echo "<div class=\"alert alert-success\">";
 
                         // we have a result set
-                        echo $result->num_rows . " rows returned <br /><br />";
+                        echo $result->num_rows . " rows returned</div>";
+                        echo "<div class=\"table-responsive\"><table class=\"table table-sm table-striped\"><thead><tr>";
 
                         // print out the column names
                         $columns = $result->fetch_fields();
-                        $index = 0;
                         foreach ($columns as $val) {
-                            $index++;
-                            if ($index < $result->field_count){
-                                printf("%s, ",$val->name);
-                            }
-                            // last field in table doesn't need a comma
-                            else {
-                                printf("%s <br />",$val->name);
-                            }
+                            echo "<th>";
+                            printf("%s",$val->name);
+                            echo "</th>";
                         }
-                        
+                        echo "</tr></thead>";
+
+                        echo "<tbody>";
+
                         // print out the result set
                         while($row = $result->fetch_row()){ 
+                            echo "<tr>";
                             for ($i = 0; $i < $result->field_count; $i++){
-                                if ($i < $result->field_count - 1){
-                                    printf("%s, ", $row[$i]);
-                                }
-                                // last element in the set doesn't need a comma
-                                else {
-                                    printf("%s", $row[$i]);
-                                }
+                                echo "<td>";
+                                printf("%s", $row[$i]);
+                                echo "</td>";
                             }
-                            echo "<br />";
+                            echo "</tr>";
                         } 
-                        echo "</div>";
-
+                        echo "</tbody></table></div>";
                     } else {
                         // no result set
                         echo "<div class=\"alert alert-success\">Command executed successfully.</div>";
