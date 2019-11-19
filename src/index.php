@@ -30,7 +30,7 @@ if ($conn->connect_error) {
         }
         /* override the massive padding Bootstrap gives to jumbotrons */
         .jumbotron {
-            padding: 2rem 1rem !important;
+            padding: 1rem !important;
         }
     </style>
   </head>
