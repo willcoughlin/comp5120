@@ -34,7 +34,7 @@
 
 9. Show the names of all the books shipped on 08/04/2016 and their
      shippers' names.
-    SELECT Book.BookID, Shipper.ShipperName FROM Book 
+    SELECT Book.Title, Shipper.ShipperName FROM Book 
         INNER JOIN OrderDetail ON OrderDetail.BookID = Book.BookID 
         INNER JOIN `Order` ON `Order`.OrderID = OrderDetail.OrderID 
         INNER JOIN Shipper ON Shipper.ShipperID = `Order`.ShipperID 
