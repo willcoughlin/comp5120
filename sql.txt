@@ -26,9 +26,8 @@
      totals.
 
 7. Show the name of books supplied by *supplier2*.
-    SELECT Title FROM Book 
-        INNER JOIN Supplier ON Book.SupplierID = Supplier.SupplierID 
-    WHERE Supplier.SupplierID = 2
+    SELECT Title FROM Book  
+    WHERE SupplierID = 2
 
 8. Show the total price each customer paid and their names.  List the
      result in descending price.
