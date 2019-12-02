@@ -113,6 +113,13 @@
     WHERE Book.Author = 'author1'
 
 16. Show the name and total sale (price of orders) of each employee.
+    SELECT e.LastName, e.FirstName, SUM(od.Quantity * b.UnitPrice) as TotalSale
+    FROM OrderDetail as od
+        INNER JOIN Book as b on od.BookID = b.BookID
+        INNER JOIN `Order` as o on od.OrderID = o.OrderID
+        INNER JOIN Employee as e on o.EmployeeID = e.EmployeeID
+    GROUP BY LastName, FirstName
+
 
 17. Show the book names and their respective quantities for open
      orders (the orders which have not been shipped) at midnight
