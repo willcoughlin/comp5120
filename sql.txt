@@ -65,14 +65,36 @@
 
 12. Show the names of all the ordered books and their total
      quantities.  List the result in ascending quantity.
+    SELECT DISTINCT Title, Book.Quantity FROM Book
+        INNER JOIN OrderDetail ON OrderDetail.BookID = Book.BookID
+        INNER JOIN `Order` ON `Order`.OrderID = OrderDetail.OrderID
+    ORDER BY Book.Quantity
 
 13. Show the names of the customers who ordered at least 2 books.
 
+------------ Not sure this one is correct because I couldn't do queries 18 and 19
+------------ with the same approach I used here.
+
+    SELECT DISTINCT LastName, FirstName FROM Customer
+        INNER JOIN `Order` ON `Order`.CustomerID = Customer.CustomerID
+        INNER JOIN OrderDetail ON OrderDetail.OrderID = `Order`.OrderID
+    WHERE (SELECT SUM(OrderDetail.Quantity)) >= 2
+
 14. Show the name of the customers who have ordered at least a book in
      *category3* or *category4* and the book names.
+    SELECT Customer.LastName, Customer.FirstName, Book.Title FROM Customer
+        INNER JOIN `Order` ON `Order`.CustomerID = Customer.CustomerID
+        INNER JOIN OrderDetail ON OrderDetail.OrderID = `Order`.OrderID
+        INNER JOIN Book ON Book.BookID = OrderDetail.BookID
+    WHERE Book.SubjectID IN (3, 4)
 
 15. Show the name of the customer who has ordered at least one book
      written by *author1*.
+    SELECT DISTINCT LastName, FirstName FROM Customer
+        INNER JOIN `Order` ON `Order`.CustomerID = Customer.CustomerID
+        INNER JOIN OrderDetail ON OrderDetail.OrderID = `Order`.OrderID
+        INNER JOIN Book ON Book.BookID = OrderDetail.BookID
+    WHERE Book.Author = 'author1'
 
 16. Show the name and total sale (price of orders) of each employee.
 
