@@ -128,6 +128,17 @@
 18. Show the names of customers who have ordered more than 1 book and
      the corresponding quantities.  List the result in the descending
      quantity.
+    SELECT c.LastName, c.FirstName, SUM(od.Quantity) as Total FROM OrderDetail as od
+        INNER JOIN `Order` as o on od.OrderID = o.OrderID
+        INNER JOIN Customer as c on o.CustomerID = c.CustomerID
+    GROUP BY LastName, FirstName
+    HAVING Total > 1
+    ORDER BY Total DESC
 
 19. Show the names of customers who have ordered more than 3 books and
      their respective telephone numbers.
+    SELECT c.LastName, c.FirstName, c.Phone FROM OrderDetail as od
+        INNER JOIN `Order` as o on od.OrderID = o.OrderID
+        INNER JOIN Customer as c on o.CustomerID = c.CustomerID
+    GROUP BY LastName, FirstName
+    HAVING SUM(od.Quantity) > 3
