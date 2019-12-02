@@ -124,6 +124,11 @@
 17. Show the book names and their respective quantities for open
      orders (the orders which have not been shipped) at midnight
      08/04/2016.
+    SELECT Book.Title, OrderDetail.Quantity FROM Book
+        INNER JOIN OrderDetail ON OrderDetail.BookID = Book.BookID
+        INNER JOIN `Order` ON `Order`.OrderID = OrderDetail.OrderID
+    WHERE OrderDate = '2016-08-04' 
+    AND ShippedDate IS NULL
 
 18. Show the names of customers who have ordered more than 1 book and
      the corresponding quantities.  List the result in the descending
