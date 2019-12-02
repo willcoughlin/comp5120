@@ -1,0 +1,149 @@
+1. Show the subject names of books supplied by *supplier2*.
+    SELECT CategoryName FROM Subject 
+        INNER JOIN Book ON Book.SubjectID = Subject.SubjectID 
+    WHERE Book.SupplierID = 2
+
+2. Show the name and price of the most expensive book supplied by
+     *supplier3*.
+    SELECT Title, UnitPrice FROM Book 
+        INNER JOIN Supplier on Book.SupplierID = Supplier.SupplierID 
+    WHERE Supplier.SupplierID = 3 ORDER BY UnitPrice DESC LIMIT 1
+
+3. Show the unique names of all books ordered by *lastname1
+     firstname1*.
+    SELECT DISTINCT Title FROM Book
+        INNER JOIN OrderDetail ON OrderDetail.BookID = Book.BookID
+        INNER JOIN `Order` ON `Order`.OrderID = OrderDetail.OrderID
+        INNER JOIN Customer ON Customer.CustomerID = `Order`.CustomerID
+    WHERE Customer.CustomerID = 1
+    
+4. Show the title of books which have more than 10 units in stock.
+    SELECT Title FROM Book WHERE Quantity > 10
+
+5. Show the total price *lastname1 firstname1* has paid for the books.
+    SELECT SUM(Book.UnitPrice * OrderDetail.Quantity) AS TotalPrice FROM Book
+        INNER JOIN OrderDetail ON OrderDetail.BookID = Book.BookID
+        INNER JOIN `Order` ON `Order`.OrderID = OrderDetail.OrderID
+        INNER JOIN Customer ON Customer.CustomerID = `Order`.CustomerID
+    WHERE Customer.CustomerID = 1
+
+6. Show the names of the customers who have paid less than $80 in
+     totals.
+    SELECT c.LastName, c.FirstName 
+    FROM OrderDetail as od
+        INNER JOIN Book as b on od.BookID = b.BookID
+        INNER JOIN `Order` as o on od.OrderID = o.OrderID
+        INNER JOIN Customer as c on o.CustomerID = c.CustomerID
+    GROUP BY LastName, FirstName
+    HAVING SUM(od.Quantity * b.UnitPrice) < 80
+
+7. Show the name of books supplied by *supplier2*.
+    SELECT Title FROM Book  
+    WHERE SupplierID = 2
+
+8. Show the total price each customer paid and their names.  List the
+     result in descending price.
+    SELECT c.LastName, c.FirstName, SUM(od.Quantity * b.UnitPrice) as Total
+    FROM OrderDetail as od
+        INNER JOIN Book as b on od.BookID = b.BookID
+        INNER JOIN `Order` as o on od.OrderID = o.OrderID
+        INNER JOIN Customer as c on o.CustomerID = c.CustomerID
+    GROUP BY LastName, FirstName
+    ORDER BY Total DESC
+
+9. Show the names of all the books shipped on 08/04/2016 and their
+     shippers' names.
+    SELECT Book.Title, Shipper.ShipperName FROM Book 
+        INNER JOIN OrderDetail ON OrderDetail.BookID = Book.BookID 
+        INNER JOIN `Order` ON `Order`.OrderID = OrderDetail.OrderID 
+        INNER JOIN Shipper ON Shipper.ShipperID = `Order`.ShipperID 
+    WHERE `Order`.OrderDate = '2016-08-04'
+
+10. Show the unique names of all the books *lastname1 firstname1* and
+     *lastname4 firstname4* *both* ordered.
+    SELECT DISTINCT Title FROM (
+        SELECT Title, Book.BookID FROM Book
+            INNER JOIN OrderDetail ON OrderDetail.BookID = Book.BookID
+            INNER JOIN `Order` ON `Order`.OrderID = OrderDetail.OrderID
+            INNER JOIN Customer ON Customer.CustomerID = `Order`.CustomerID
+        WHERE Customer.CustomerID = 1) AS A
+    WHERE A.BookID IN (
+        SELECT Book.BookID FROM Book
+            INNER JOIN OrderDetail ON OrderDetail.BookID = Book.BookID
+            INNER JOIN `Order` ON `Order`.OrderID = OrderDetail.OrderID
+            INNER JOIN Customer ON Customer.CustomerID = `Order`.CustomerID
+        WHERE Customer.CustomerID = 4)
+
+11. Show the names of all the books *lastname6 firstname6* was
+     responsible for.
+    SELECT Title FROM Book
+        INNER JOIN OrderDetail ON OrderDetail.BookID = Book.BookID
+        INNER JOIN `Order` ON `Order`.OrderID = OrderDetail.OrderID
+        INNER JOIN Customer ON Customer.CustomerID = `Order`.CustomerID
+    WHERE Customer.CustomerID = 6
+
+12. Show the names of all the ordered books and their total
+     quantities.  List the result in ascending quantity.
+    SELECT DISTINCT Title, Book.Quantity FROM Book
+        INNER JOIN OrderDetail ON OrderDetail.BookID = Book.BookID
+        INNER JOIN `Order` ON `Order`.OrderID = OrderDetail.OrderID
+    ORDER BY Book.Quantity
+
+13. Show the names of the customers who ordered at least 2 books.
+    SELECT c.LastName, c.FirstName FROM OrderDetail as od
+        INNER JOIN `Order` as o on od.OrderID = o.OrderID
+        INNER JOIN Customer as c on o.CustomerID = c.CustomerID
+    GROUP BY LastName, FirstName
+    HAVING SUM(Quantity) >= 2
+
+14. Show the name of the customers who have ordered at least a book in
+     *category3* or *category4* and the book names.
+    SELECT Customer.LastName, Customer.FirstName, Book.Title FROM Customer
+        INNER JOIN `Order` ON `Order`.CustomerID = Customer.CustomerID
+        INNER JOIN OrderDetail ON OrderDetail.OrderID = `Order`.OrderID
+        INNER JOIN Book ON Book.BookID = OrderDetail.BookID
+    WHERE Book.SubjectID IN (3, 4)
+
+15. Show the name of the customer who has ordered at least one book
+     written by *author1*.
+    SELECT DISTINCT LastName, FirstName FROM Customer
+        INNER JOIN `Order` ON `Order`.CustomerID = Customer.CustomerID
+        INNER JOIN OrderDetail ON OrderDetail.OrderID = `Order`.OrderID
+        INNER JOIN Book ON Book.BookID = OrderDetail.BookID
+    WHERE Book.Author = 'author1'
+
+16. Show the name and total sale (price of orders) of each employee.
+    SELECT e.LastName, e.FirstName, SUM(od.Quantity * b.UnitPrice) as TotalSale
+    FROM OrderDetail as od
+        INNER JOIN Book as b on od.BookID = b.BookID
+        INNER JOIN `Order` as o on od.OrderID = o.OrderID
+        INNER JOIN Employee as e on o.EmployeeID = e.EmployeeID
+    GROUP BY LastName, FirstName
+
+
+17. Show the book names and their respective quantities for open
+     orders (the orders which have not been shipped) at midnight
+     08/04/2016.
+    SELECT Book.Title, OrderDetail.Quantity FROM Book
+        INNER JOIN OrderDetail ON OrderDetail.BookID = Book.BookID
+        INNER JOIN `Order` ON `Order`.OrderID = OrderDetail.OrderID
+    WHERE OrderDate = '2016-08-04' 
+    AND ShippedDate IS NULL
+
+18. Show the names of customers who have ordered more than 1 book and
+     the corresponding quantities.  List the result in the descending
+     quantity.
+    SELECT c.LastName, c.FirstName, SUM(od.Quantity) as Total FROM OrderDetail as od
+        INNER JOIN `Order` as o on od.OrderID = o.OrderID
+        INNER JOIN Customer as c on o.CustomerID = c.CustomerID
+    GROUP BY LastName, FirstName
+    HAVING Total > 1
+    ORDER BY Total DESC
+
+19. Show the names of customers who have ordered more than 3 books and
+     their respective telephone numbers.
+    SELECT c.LastName, c.FirstName, c.Phone FROM OrderDetail as od
+        INNER JOIN `Order` as o on od.OrderID = o.OrderID
+        INNER JOIN Customer as c on o.CustomerID = c.CustomerID
+    GROUP BY LastName, FirstName
+    HAVING SUM(od.Quantity) > 3
