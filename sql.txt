@@ -29,6 +29,13 @@
 
 6. Show the names of the customers who have paid less than $80 in
      totals.
+    SELECT c.LastName, c.FirstName 
+    FROM OrderDetail as od
+        INNER JOIN Book as b on od.BookID = b.BookID
+        INNER JOIN `Order` as o on od.OrderID = o.OrderID
+        INNER JOIN Customer as c on o.CustomerID = c.CustomerID
+    GROUP BY LastName, FirstName
+    HAVING SUM(od.Quantity * b.UnitPrice) < 80
 
 7. Show the name of books supplied by *supplier2*.
     SELECT Title FROM Book  
@@ -36,6 +43,13 @@
 
 8. Show the total price each customer paid and their names.  List the
      result in descending price.
+    SELECT c.LastName, c.FirstName, SUM(od.Quantity * b.UnitPrice) as Total
+    FROM OrderDetail as od
+        INNER JOIN Book as b on od.BookID = b.BookID
+        INNER JOIN `Order` as o on od.OrderID = o.OrderID
+        INNER JOIN Customer as c on o.CustomerID = c.CustomerID
+    GROUP BY LastName, FirstName
+    ORDER BY Total DESC
 
 9. Show the names of all the books shipped on 08/04/2016 and their
      shippers' names.
@@ -76,14 +90,11 @@
     ORDER BY Book.Quantity
 
 13. Show the names of the customers who ordered at least 2 books.
-
------------- Not sure this one is correct because I couldn't do queries 18 and 19
------------- with the same approach I used here.
-
-    SELECT DISTINCT LastName, FirstName FROM Customer
-        INNER JOIN `Order` ON `Order`.CustomerID = Customer.CustomerID
-        INNER JOIN OrderDetail ON OrderDetail.OrderID = `Order`.OrderID
-    WHERE (SELECT SUM(OrderDetail.Quantity)) >= 2
+    SELECT c.LastName, c.FirstName FROM OrderDetail as od
+        INNER JOIN `Order` as o on od.OrderID = o.OrderID
+        INNER JOIN Customer as c on o.CustomerID = c.CustomerID
+    GROUP BY LastName, FirstName
+    HAVING SUM(Quantity) >= 2
 
 14. Show the name of the customers who have ordered at least a book in
      *category3* or *category4* and the book names.
