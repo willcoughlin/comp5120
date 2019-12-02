@@ -21,6 +21,11 @@
     SELECT Title FROM Book WHERE Quantity > 10
 
 5. Show the total price *lastname1 firstname1* has paid for the books.
+    SELECT SUM(Book.UnitPrice * OrderDetail.Quantity) AS TotalPrice FROM Book
+        INNER JOIN OrderDetail ON OrderDetail.BookID = Book.BookID
+        INNER JOIN `Order` ON `Order`.OrderID = OrderDetail.OrderID
+        INNER JOIN Customer ON Customer.CustomerID = `Order`.CustomerID
+    WHERE Customer.CustomerID = 1
 
 6. Show the names of the customers who have paid less than $80 in
      totals.
