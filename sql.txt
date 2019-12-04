@@ -28,7 +28,7 @@ SELECT c.LastName, c.FirstName, SUM(od.Quantity * b.UnitPrice) as Total FROM Ord
 
 9. Show the names of all the books shipped on 08/04/2016 and their
      shippers' names.
-SELECT Book.Title, Shipper.ShipperName FROM Book INNER JOIN OrderDetail ON OrderDetail.BookID = Book.BookID INNER JOIN `Order` ON `Order`.OrderID = OrderDetail.OrderID INNER JOIN Shipper ON Shipper.ShipperID = `Order`.ShipperID WHERE `Order`.OrderDate = '2016-08-04'
+SELECT Book.Title, Shipper.ShipperName FROM Book INNER JOIN OrderDetail ON OrderDetail.BookID = Book.BookID INNER JOIN `Order` ON `Order`.OrderID = OrderDetail.OrderID INNER JOIN Shipper ON Shipper.ShipperID = `Order`.ShipperID WHERE `Order`.ShippedDate = '2016-08-04'
 
 10. Show the unique names of all the books *lastname1 firstname1* and
      *lastname4 firstname4* *both* ordered.
@@ -36,7 +36,7 @@ SELECT DISTINCT Title FROM (SELECT Title, Book.BookID FROM Book INNER JOIN Order
 
 11. Show the names of all the books *lastname6 firstname6* was
      responsible for.
-SELECT Title FROM Book INNER JOIN OrderDetail ON OrderDetail.BookID = Book.BookID INNER JOIN `Order` ON `Order`.OrderID = OrderDetail.OrderID INNER JOIN Customer ON Customer.CustomerID = `Order`.CustomerID WHERE Customer.CustomerID = 6
+SELECT Title FROM Book INNER JOIN OrderDetail ON OrderDetail.BookID = Book.BookID INNER JOIN `Order` ON `Order`.OrderID = OrderDetail.OrderID INNER JOIN Employee ON Employee.Employeeid = `Order`.EmployeeID WHERE Employee.EmployeeID = 2
 
 12. Show the names of all the ordered books and their total
      quantities.  List the result in ascending quantity.
@@ -55,7 +55,6 @@ SELECT DISTINCT LastName, FirstName FROM Customer INNER JOIN `Order` ON `Order`.
 
 16. Show the name and total sale (price of orders) of each employee.
 SELECT e.LastName, e.FirstName, SUM(od.Quantity * b.UnitPrice) as TotalSale FROM OrderDetail as od INNER JOIN Book as b on od.BookID = b.BookID INNER JOIN `Order` as o on od.OrderID = o.OrderID INNER JOIN Employee as e on o.EmployeeID = e.EmployeeID GROUP BY LastName, FirstName
-
 
 17. Show the book names and their respective quantities for open
      orders (the orders which have not been shipped) at midnight
