@@ -76,7 +76,7 @@
 
 11. Show the names of all the books *lastname6 firstname6* was
      responsible for.
-    SELECT Title FROM Book
+    SELECT DISTINCT Title FROM Book
         INNER JOIN OrderDetail ON OrderDetail.BookID = Book.BookID
         INNER JOIN `Order` ON `Order`.OrderID = OrderDetail.OrderID
         INNER JOIN Employee ON Employee.Employeeid = `Order`.EmployeeID

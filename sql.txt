@@ -36,7 +36,7 @@ SELECT DISTINCT Title FROM (SELECT Title, Book.BookID FROM Book INNER JOIN Order
 
 11. Show the names of all the books *lastname6 firstname6* was
      responsible for.
-SELECT Title FROM Book INNER JOIN OrderDetail ON OrderDetail.BookID = Book.BookID INNER JOIN `Order` ON `Order`.OrderID = OrderDetail.OrderID INNER JOIN Employee ON Employee.Employeeid = `Order`.EmployeeID WHERE Employee.EmployeeID = 2
+SELECT DISTINCT Title FROM Book INNER JOIN OrderDetail ON OrderDetail.BookID = Book.BookID INNER JOIN `Order` ON `Order`.OrderID = OrderDetail.OrderID INNER JOIN Employee ON Employee.Employeeid = `Order`.EmployeeID WHERE Employee.EmployeeID = 2
 
 12. Show the names of all the ordered books and their total
      quantities.  List the result in ascending quantity.
